@@ -10,16 +10,34 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.cpi.mobileapp",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_MEDIA_IMAGES"
+      ],
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you attach site commissioning photos.",
+          "cameraPermission": "The app accesses your camera to let you take site commissioning photos."
+        }
+      ],
+      "expo-sharing",
+      "expo-file-system"
+    ]
   }
 }

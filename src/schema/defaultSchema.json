@@ -1,0 +1,317 @@
+{
+  "id": "cpi-site-commissioning-standard",
+  "version": "1.0.0",
+  "title": "Site Commissioning Form",
+  "subtitle": "Offline Field Capture · Philippine Rural Solar Program",
+  "description": "Standard 3-section offline field commissioning protocol for solar home systems and cooperative mini-grids.",
+  "lastUpdated": "2026-09-29T00:00:00Z",
+  "author": "Cost Plus, Inc. Engineering Operations",
+  "sections": [
+    {
+      "id": "section-a",
+      "code": "A",
+      "title": "Construction",
+      "description": "Contractor mobilisation, solar foundation milestones & earthing installation",
+      "icon": "construct-outline",
+      "fields": [
+        {
+          "id": "contractorMobilisedDate",
+          "label": "Contractor Mobilised date",
+          "type": "date",
+          "required": true,
+          "helpText": "Official date contractor deployed personnel and equipment to site",
+          "validation": [
+            {
+              "type": "required",
+              "message": "Contractor Mobilised date is required"
+            },
+            {
+              "type": "not_future",
+              "message": "Contractor Mobilised date cannot be in the future"
+            }
+          ]
+        },
+        {
+          "id": "solarFoundationStartDate",
+          "label": "Solar Foundation — start date",
+          "type": "date",
+          "required": true,
+          "helpText": "Date foundation ground-breaking or civil works began",
+          "validation": [
+            {
+              "type": "required",
+              "message": "Solar Foundation start date is required"
+            },
+            {
+              "type": "not_future",
+              "message": "Solar Foundation start date cannot be in the future"
+            },
+            {
+              "type": "min_date_field",
+              "targetField": "contractorMobilisedDate",
+              "message": "Solar Foundation start is never earlier than Contractor Mobilised date"
+            }
+          ]
+        },
+        {
+          "id": "solarFoundationEndDate",
+          "label": "Solar Foundation — end date",
+          "type": "date",
+          "required": true,
+          "helpText": "Date foundation civil works, curing and anchoring completed",
+          "validation": [
+            {
+              "type": "required",
+              "message": "Solar Foundation end date is required"
+            },
+            {
+              "type": "not_future",
+              "message": "Solar Foundation end date cannot be in the future"
+            },
+            {
+              "type": "min_date_field",
+              "targetField": "solarFoundationStartDate",
+              "message": "Solar Foundation end date is never earlier than its start date"
+            }
+          ]
+        },
+        {
+          "id": "earthingWorks",
+          "label": "Earthing Works",
+          "type": "radio",
+          "required": true,
+          "helpText": "Specify whether earthing and ground protection works were executed",
+          "defaultValue": "No",
+          "options": [
+            { "label": "Yes", "value": "Yes" },
+            { "label": "No", "value": "No" }
+          ]
+        },
+        {
+          "id": "typeOfEarthing",
+          "label": "Type of Earthing",
+          "type": "select",
+          "required": true,
+          "helpText": "Select earthing methodology deployed on site",
+          "visibility": {
+            "field": "earthingWorks",
+            "operator": "equals",
+            "value": "Yes"
+          },
+          "options": [
+            { "label": "Chemical", "value": "Chemical" },
+            { "label": "Pipe", "value": "Pipe" },
+            { "label": "Spike", "value": "Spike" }
+          ],
+          "validation": [
+            {
+              "type": "required",
+              "message": "Type of Earthing is required when Earthing Works is Yes"
+            }
+          ]
+        },
+        {
+          "id": "earthingNos",
+          "label": "Earthing Nos",
+          "type": "select",
+          "required": true,
+          "helpText": "Number of earthing points installed (generates Section C photo slots)",
+          "defaultValue": 1,
+          "visibility": {
+            "field": "earthingWorks",
+            "operator": "equals",
+            "value": "Yes"
+          },
+          "options": [
+            { "label": "1 Point", "value": 1 },
+            { "label": "2 Points", "value": 2 },
+            { "label": "3 Points", "value": 3 }
+          ],
+          "validation": [
+            {
+              "type": "required",
+              "message": "Earthing Nos is required when Earthing Works is Yes"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-b",
+      "code": "B",
+      "title": "Utility Installation",
+      "description": "Energy Storage Systems (ESS), solar module rating & PV capacity calculation",
+      "icon": "flash-outline",
+      "fields": [
+        {
+          "id": "ess",
+          "label": "ESS (Energy Storage System)",
+          "type": "radio",
+          "required": true,
+          "helpText": "Indicate if battery energy storage units were installed",
+          "defaultValue": "No",
+          "options": [
+            { "label": "Yes", "value": "Yes" },
+            { "label": "No", "value": "No" }
+          ]
+        },
+        {
+          "id": "noOfEssInstalled",
+          "label": "No of ESS Installed",
+          "type": "select",
+          "required": true,
+          "helpText": "Select number of battery units (1 to 10)",
+          "defaultValue": 1,
+          "visibility": {
+            "field": "ess",
+            "operator": "equals",
+            "value": "Yes"
+          },
+          "options": [
+            { "label": "1 Unit", "value": 1 },
+            { "label": "2 Units", "value": 2 },
+            { "label": "3 Units", "value": 3 },
+            { "label": "4 Units", "value": 4 },
+            { "label": "5 Units", "value": 5 },
+            { "label": "6 Units", "value": 6 },
+            { "label": "7 Units", "value": 7 },
+            { "label": "8 Units", "value": 8 },
+            { "label": "9 Units", "value": 9 },
+            { "label": "10 Units", "value": 10 }
+          ],
+          "validation": [
+            {
+              "type": "required",
+              "message": "Number of ESS installed is required when ESS is Yes"
+            }
+          ]
+        },
+        {
+          "id": "essUnits",
+          "label": "ESS Unit Specifications",
+          "type": "repeater",
+          "visibility": {
+            "field": "ess",
+            "operator": "equals",
+            "value": "Yes"
+          },
+          "repeaterCountField": "noOfEssInstalled",
+          "itemLabel": "ESS Unit #{index}",
+          "subFields": [
+            {
+              "id": "make",
+              "label": "Make",
+              "type": "text",
+              "required": true,
+              "placeholder": "e.g. Huawei, BYD, Pylontech"
+            },
+            {
+              "id": "serialNo",
+              "label": "Serial No",
+              "type": "text",
+              "required": true,
+              "placeholder": "e.g. SN-98234-PH"
+            }
+          ]
+        },
+        {
+          "id": "panelCapacity",
+          "label": "Panel Capacity",
+          "type": "select",
+          "required": true,
+          "unit": "Wp",
+          "helpText": "Nominal peak wattage rating per solar module",
+          "defaultValue": 580,
+          "options": [
+            { "label": "575 Wp", "value": 575 },
+            { "label": "580 Wp", "value": 580 },
+            { "label": "585 Wp", "value": 585 },
+            { "label": "590 Wp", "value": 590 },
+            { "label": "600 Wp", "value": 600 }
+          ],
+          "validation": [
+            {
+              "type": "required",
+              "message": "Panel Capacity is required"
+            }
+          ]
+        },
+        {
+          "id": "numberOfSolarPanels",
+          "label": "Number of Solar Panels",
+          "type": "number",
+          "required": true,
+          "placeholder": "Enter panel count (e.g. 24)",
+          "helpText": "Total count of solar PV modules installed on structure",
+          "validation": [
+            {
+              "type": "required",
+              "message": "Number of Solar Panels is required"
+            },
+            {
+              "type": "min_value",
+              "value": 1,
+              "message": "Number of Solar Panels must be at least 1"
+            },
+            {
+              "type": "integer_only",
+              "message": "Number of Solar Panels must be a whole integer"
+            }
+          ]
+        },
+        {
+          "id": "solarPvCapacity",
+          "label": "Solar PV Capacity",
+          "type": "computed",
+          "readOnly": true,
+          "unit": "kWp",
+          "formula": "(panelCapacity * numberOfSolarPanels) / 1000",
+          "decimals": 2,
+          "helpText": "System rating: (Panel Capacity × Number of Panels) ÷ 1000"
+        }
+      ]
+    },
+    {
+      "id": "section-c",
+      "code": "C",
+      "title": "Photos",
+      "description": "Audit photo evidence. Every outstanding slot must be captured before submission.",
+      "icon": "camera-outline",
+      "photoGroups": [
+        {
+          "id": "foundationPhotos",
+          "title": "Foundation",
+          "description": "Civil & structural foundation verification photos (4 required)",
+          "slots": [
+            { "id": "excavation", "label": "Excavation", "required": true, "description": "Trench / pit depth and soil preparation" },
+            { "id": "steel_binding", "label": "Steel Binding", "required": true, "description": "Rebar cage and structural steel binding" },
+            { "id": "raft_column", "label": "Raft / Column", "required": true, "description": "Concrete pour, column alignment and curing" },
+            { "id": "bolts_pedestal", "label": "Bolts / Pedestal", "required": true, "description": "Anchor bolts, pedestal level and torque markings" }
+          ]
+        },
+        {
+          "id": "structurePhotos",
+          "title": "Structure",
+          "description": "Solar mounting structure elevation verification (2 required)",
+          "slots": [
+            { "id": "front", "label": "Front", "required": true, "description": "Full front elevation showing panel orientation" },
+            { "id": "side", "label": "Side", "required": true, "description": "Side elevation showing tilt angle and bracing" }
+          ]
+        },
+        {
+          "id": "earthingPhotos",
+          "title": "Earthing",
+          "description": "Earthing ground connection verification. Appears only when Earthing Works is Yes.",
+          "visibility": {
+            "field": "earthingWorks",
+            "operator": "equals",
+            "value": "Yes"
+          },
+          "dynamicCountField": "earthingNos",
+          "slotPrefix": "EP",
+          "slotLabelTemplate": "Earthing Point {index} (EP{index})"
+        }
+      ]
+    }
+  ]
+}
