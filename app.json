@@ -18,10 +18,12 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
-        "READ_MEDIA_IMAGES"
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.INTERNET"
       ],
       "predictiveBackGestureEnabled": false
     },
@@ -38,6 +40,12 @@
       ],
       "expo-sharing",
       "expo-file-system"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e9adbafb-ccc7-409d-a92d-5058d25292b4"
+      }
+    },
+    "owner": "jyotiprakash"
   }
 }
